@@ -1,3 +1,5 @@
+/* index.js */
+/* Starts scripts */
 import bodyParser from "body-parser";
 import express from "express";
 import router from "./src/routes/router.js";
