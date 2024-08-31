@@ -9,12 +9,12 @@ import sqlError from "../helpers/sql-error.js";
 export default (req, res) => {
     let q = JSON.stringify(req.body.question);
     let c = JSON.stringify(JSON.stringify(req.body.choices));
-    let a = JSON.stringify(req.body.answer);
+    let a = JSON.stringify(req.body.correct);
 
     req.app.get("dbcon").query(
         `
         SELECT * FROM Questions
-        WHERE Question = ${q};
+        WHERE question = ${q};
     `,
         sqlError(res, (rows) => {
             if (rows.length == 0) {
@@ -25,8 +25,8 @@ export default (req, res) => {
                 req.app.get("dbcon").query(
                     `
                 UPDATE Questions 
-                SET Choices = ${c}, Answer = ${a}
-                WHERE Question = ${q}; 
+                SET choices = ${c}, correct = ${a}
+                WHERE question = ${q}; 
             `,
                     sqlError(res, () => {
                         res.status(200).json({

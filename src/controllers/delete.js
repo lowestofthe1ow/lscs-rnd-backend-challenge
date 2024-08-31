@@ -12,7 +12,7 @@ export default (req, res) => {
     req.app.get("dbcon").query(
         `
         SELECT * FROM Questions
-        WHERE Question = ${q};
+        WHERE question = ${q};
     `,
         (err, rows) => {
             if (rows.length == 0) {
@@ -25,7 +25,7 @@ export default (req, res) => {
                 req.app.get("dbcon").query(
                     `
                 DELETE FROM Questions
-                WHERE Question = ${q};
+                WHERE question = ${q};
             `,
                     sqlError(res, () => {
                         res.status(200).json({

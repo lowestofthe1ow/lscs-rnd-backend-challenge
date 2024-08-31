@@ -12,7 +12,7 @@ export default (req, res) => {
     req.app.get("dbcon").query(
         `
         SELECT * FROM Questions
-        WHERE Question = ${q};
+        WHERE question = ${q};
     `,
         sqlError(res, (rows) => {
             if (rows.length == 0) {

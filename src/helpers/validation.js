@@ -43,8 +43,7 @@ export const choicesSchema = {
  */
 export const answerSchema = {
     answer: {
-        isString: true,
         escape: true,
-        errorMessage: "Invalid answer string",
+        errorMessage: "Invalid answer",
     },
 };

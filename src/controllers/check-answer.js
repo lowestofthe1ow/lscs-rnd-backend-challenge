@@ -8,12 +8,12 @@ import sqlError from "../helpers/sql-error.js";
  */
 export default (req, res) => {
     let q = JSON.stringify(req.body.question);
-    let t = JSON.stringify(req.body.answer);
+    let t = req.body.answer;
 
     req.app.get("dbcon").query(
         `
         SELECT * FROM Questions
-        WHERE Question = ${q};
+        WHERE question = ${q};
     `,
         sqlError(res, (rows) => {
             if (rows.length == 0) {
@@ -33,7 +33,7 @@ export default (req, res) => {
                 } else {
                     res.status(200).json({
                         message: "Evaluated successfully",
-                        correct: JSON.stringify(choices[correct]) == t,
+                        correct: choices[correct] == t,
                     });
                 }
             }
