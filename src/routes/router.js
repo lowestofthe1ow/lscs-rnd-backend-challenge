@@ -1,48 +1,57 @@
-import express from 'express';
-import { checkSchema } from 'express-validator';
+import express from "express";
+import { checkSchema } from "express-validator";
 
 import {
     answerSchema,
     choicesSchema,
-    questionSchema
-} from '../helpers/validation.js';
+    questionSchema,
+} from "../helpers/validation.js";
 
-import validate from '../middleware/validate.js';
+import validate from "../middleware/validate.js";
 
-import checkAnswerController from '../controllers/check-answer.js';
-import createController from '../controllers/create.js';
-import deleteController from '../controllers/delete.js';
-import getController from '../controllers/get.js';
-import listController from '../controllers/list.js';
-import updateController from '../controllers/update.js';
+import checkAnswerController from "../controllers/check-answer.js";
+import createController from "../controllers/create.js";
+import deleteController from "../controllers/delete.js";
+import getController from "../controllers/get.js";
+import listController from "../controllers/list.js";
+import updateController from "../controllers/update.js";
 
+/**
+ * Router for quiz API.
+ * @module router
+ */
 const router = express.Router();
 
-router.post('/create',
+router.post(
+    "/create",
     checkSchema({ ...questionSchema, ...choicesSchema }),
     validate,
-    createController)
+    createController
+);
 
-router.post('/update',
+router.post(
+    "/update",
     checkSchema({ ...questionSchema, ...choicesSchema }),
     validate,
-    updateController)
+    updateController
+);
 
-router.post('/delete',
+router.post(
+    "/delete",
     checkSchema({ ...questionSchema }),
     validate,
-    deleteController)
+    deleteController
+);
 
-router.get('/get',
-    checkSchema({ ...questionSchema }),
-    validate,
-    getController)
+router.get("/get", checkSchema({ ...questionSchema }), validate, getController);
 
-router.get('/list', listController)
+router.get("/list", listController);
 
-router.get('/check-answer',
+router.get(
+    "/check-answer",
     checkSchema({ ...questionSchema, ...answerSchema }),
     validate,
-    checkAnswerController)
+    checkAnswerController
+);
 
 export default router;

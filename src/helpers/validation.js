@@ -5,8 +5,8 @@ export const questionSchema = {
     question: {
         isString: true,
         escape: true,
-        errorMessage: 'Invalid question string',
-    }
+        errorMessage: "Invalid question string",
+    },
 };
 
 /**
@@ -16,24 +16,26 @@ export const choicesSchema = {
     choices: {
         isArray: true,
         escape: true,
-        errorMessage: 'Invalid choices array (must have a length of at least 2)',
+        errorMessage:
+            "Invalid choices array (must have a length of at least 2)",
         custom: {
             options: (value) => {
                 return value.length >= 2;
-            }
-        }
+            },
+        },
     },
     correct: {
         isInt: true,
         escape: true,
-        errorMessage: 'Invalid correct answer index (must be within bounds of choices array)',
+        errorMessage:
+            "Invalid correct answer index (must be within bounds of choices array)",
         custom: {
             options: (value, { req }) => {
                 let len = req.body.choices.length;
                 return value < len;
-            }
-        }
-    }
+            },
+        },
+    },
 };
 
 /**
@@ -43,6 +45,6 @@ export const answerSchema = {
     answer: {
         isString: true,
         escape: true,
-        errorMessage: 'Invalid answer string',
-    }
+        errorMessage: "Invalid answer string",
+    },
 };
