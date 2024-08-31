@@ -1,5 +1,5 @@
 import express from "express";
-import { checkSchema } from "express-validator";
+import { checkExact, checkSchema } from "express-validator";
 
 import {
     answerSchema,
@@ -24,32 +24,37 @@ const router = express.Router();
 
 router.post(
     "/create",
-    checkSchema({ ...questionSchema, ...choicesSchema }),
+    checkExact(checkSchema({ ...questionSchema, ...choicesSchema })),
     validate,
     createController
 );
 
 router.post(
     "/update",
-    checkSchema({ ...questionSchema, ...choicesSchema }),
+    checkExact(checkSchema({ ...questionSchema, ...choicesSchema })),
     validate,
     updateController
 );
 
 router.post(
     "/delete",
-    checkSchema({ ...questionSchema }),
+    checkExact(checkSchema({ ...questionSchema })),
     validate,
     deleteController
 );
 
-router.get("/get", checkSchema({ ...questionSchema }), validate, getController);
+router.get(
+    "/get",
+    checkExact(checkSchema({ ...questionSchema })),
+    validate,
+    getController
+);
 
 router.get("/list", listController);
 
 router.get(
     "/check-answer",
-    checkSchema({ ...questionSchema, ...answerSchema }),
+    checkExact(checkSchema({ ...questionSchema, ...answerSchema })),
     validate,
     checkAnswerController
 );
